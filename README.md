@@ -1,5 +1,7 @@
 # Prueba CRUD con Supabase y React
 
+## Despliegue
+- Ver en https://crud-jwezujvf4-james-projects-d587118c.vercel.app/tasks
 ## Instalación
 1. Clona el repositorio: `git clone https://github.com/jamestnt/CRUD.git`
 2. Instala dependencias: `npm install`
