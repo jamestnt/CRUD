@@ -43,7 +43,7 @@ const Login: React.FC = () => {
           margin="normal"
           required
         />
-        <a color='white' href='/register'>¿No tienes una cuenta? Registrate</a>
+        <a style={{color: "white"}} href='/register'>¿No tienes una cuenta? Registrate</a>
         <Button
           fullWidth
           variant="contained"
