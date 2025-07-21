@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { getTasks, deleteTask } from '../services/taskService';
+import { signOut } from '../services/authService';
 import { Task } from '../types';
 import TaskForm from './TaskForm';
+import { useNavigate } from 'react-router-dom';
 import {
   TextField,
   Card,
@@ -12,6 +14,7 @@ import {
   Box,
   Typography,
   Alert,
+  Button,
 } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 
@@ -20,6 +23,7 @@ const TaskList: React.FC = () => {
   const [error, setError] = useState('');
   const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
   const [search, setSearch] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -51,6 +55,15 @@ const TaskList: React.FC = () => {
     setSelectedTask(undefined);
   };
 
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+      navigate('/login');
+    } catch (err: any) {
+      setError(err.message);
+    }
+  };
+
   const isExpired = (fecha_vencimiento?: string) =>
     fecha_vencimiento ? new Date(fecha_vencimiento) < new Date() : false;
 
@@ -60,9 +73,12 @@ const TaskList: React.FC = () => {
 
   return (
     <Box sx={{ maxWidth: 1200, mx: 'auto', p: 2 }}>
-      <Typography variant="h4" gutterBottom>
-        Mis Tareas
-      </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        <Typography variant="h4">Mis Tareas</Typography>
+        <Button variant="outlined" onClick={handleSignOut}>
+          Cerrar Sesión
+        </Button>
+      </Box>
       <TextField
         fullWidth
         label="Buscar tareas"
